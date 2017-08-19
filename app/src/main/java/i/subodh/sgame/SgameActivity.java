@@ -55,7 +55,15 @@ public class SgameActivity extends AppCompatActivity implements View.OnClickList
             if (cntrArr[i] != i)
                 return false;
         }
+        Toast.makeText(this, "Wow ! U did it...", Toast.LENGTH_SHORT).show();
         return true;
+    }
+    /*
+    Show the Click Count
+     */
+    void displayClickCount(){
+        Log.d(TAG, "Setting up Display of Click counter");
+        //txtClickCount.setText("Click Count : " + ClickCount);
     }
     /*
     Display the button label numbers as per the Control Array
@@ -75,30 +83,34 @@ public class SgameActivity extends AppCompatActivity implements View.OnClickList
      */
     void userClicks(int keyCode){
         Log.d(TAG, "Handing User click");
-        clickCounter("INC");
+
         // Check the right side space
         if (keyCode % 3 !=2 )
             if(cntrArr[keyCode+1] == 8 ){
                 cntrArr[keyCode+1] = cntrArr[keyCode];
                 cntrArr[keyCode] = 8;
+                clickCounter("INC");
             }
         //Check the Left side space
         if (keyCode % 3 != 0)
             if(cntrArr[keyCode-1] == 8){
                 cntrArr[keyCode-1] = cntrArr[keyCode];
                 cntrArr[keyCode] = 8;
+                clickCounter("INC");
             }
         //Check the bottom side
         if (keyCode < 6 )
             if (cntrArr[keyCode + 3] == 8) {
                 cntrArr[keyCode + 3] = cntrArr[keyCode];
                 cntrArr[keyCode] = 8;
+                clickCounter("INC");
             }
         //Check the upper side
         if (keyCode > 2 )
             if (cntrArr[keyCode - 3] == 8) {
                 cntrArr[keyCode - 3] = cntrArr[keyCode];
                 cntrArr[keyCode] = 8;
+                clickCounter("INC");
             }
         //redisplay the game_board
         displayCntrArr();
@@ -117,6 +129,7 @@ public class SgameActivity extends AppCompatActivity implements View.OnClickList
                 break;
         }
         //Always return the current count
+        displayClickCount();
         return ClickCount;
 
     }
@@ -137,13 +150,18 @@ public class SgameActivity extends AppCompatActivity implements View.OnClickList
 
         setCntrArr();
         displayCntrArr();
+
+        Toast.makeText(this, "Welcome to S-Game", Toast.LENGTH_SHORT).show();
         Log.d(TAG, "Initial Button set up");
 
         btnReset = (Button) findViewById(R.id.btnReset);
         btnReset.setOnClickListener(this);
         btnHelp = (Button) findViewById(R.id.btnHelp);
         btnHelp.setOnClickListener(this);
+
         txtClickCount = (TextView) findViewById(R.id.txtClickCount);
+        displayClickCount();
+
 
     }
     @Override
@@ -163,11 +181,15 @@ public class SgameActivity extends AppCompatActivity implements View.OnClickList
         switch(v.getId()){
              case R.id.btnReset:
                  //TODO call Dailog and handle it
+                 Toast.makeText(this, "You choose to Reset S-Game", Toast.LENGTH_SHORT).show();
+                 Log.d(TAG, "Setting up a new S-Game");
                  setCntrArr();
                  displayCntrArr();
                  break;
             case R.id.btnHelp:
                 //TODO display the Game instructions
+                Toast.makeText(this, "Sorry No Help available", Toast.LENGTH_SHORT).show();
+                Log.d(TAG, "Help Button Clicked");
         }
     }
 }
