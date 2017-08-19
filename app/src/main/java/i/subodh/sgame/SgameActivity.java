@@ -18,7 +18,8 @@ public class SgameActivity extends AppCompatActivity implements View.OnClickList
             R.id.btn5, R.id.btn6, R.id.btn7, R.id.btn8 };
 
     Button [] btnX = new Button[9];
-    int [] cntrArr = new int[9];
+    private int [] cntrArr = new int[9];
+    private int ClickCount = 0;
     Button btnReset;
     Button btnHelp;
     TextView txtClickCount;
@@ -44,6 +45,17 @@ public class SgameActivity extends AppCompatActivity implements View.OnClickList
             }
             cntrArr[rand] = i;
         }
+        clickCounter("RESET");
+    }
+    /*
+    Verify the end game
+     */
+    boolean isGameOver(){
+        for (int i=0; i<cntrArr.length; i++){
+            if (cntrArr[i] != i)
+                return false;
+        }
+        return true;
     }
     /*
     Display the button label numbers as per the Control Array
@@ -57,6 +69,56 @@ public class SgameActivity extends AppCompatActivity implements View.OnClickList
             else
                 btnX[i].setVisibility(View.VISIBLE);
         }
+    }
+    /*
+    Handle the game clicks
+     */
+    void userClicks(int keyCode){
+        Log.d(TAG, "Handing User click");
+        clickCounter("INC");
+        // Check the right side space
+        if (keyCode % 3 !=2 )
+            if(cntrArr[keyCode+1] == 8 ){
+                cntrArr[keyCode+1] = cntrArr[keyCode];
+                cntrArr[keyCode] = 8;
+            }
+        //Check the Left side space
+        if (keyCode % 3 != 0)
+            if(cntrArr[keyCode-1] == 8){
+                cntrArr[keyCode-1] = cntrArr[keyCode];
+                cntrArr[keyCode] = 8;
+            }
+        //Check the bottom side
+        if (keyCode < 6 )
+            if (cntrArr[keyCode + 3] == 8) {
+                cntrArr[keyCode + 3] = cntrArr[keyCode];
+                cntrArr[keyCode] = 8;
+            }
+        //Check the upper side
+        if (keyCode > 2 )
+            if (cntrArr[keyCode - 3] == 8) {
+                cntrArr[keyCode - 3] = cntrArr[keyCode];
+                cntrArr[keyCode] = 8;
+            }
+        //redisplay the game_board
+        displayCntrArr();
+    }
+    /*
+    Set/reset and read the Count Cliks as needed
+     */
+    int clickCounter(String operation){
+        Log.d(TAG, "In the clickCounter function");
+        switch (operation){
+            case "INC":
+                ClickCount++;
+                break;
+            case "RESET":
+                ClickCount = 0;
+                break;
+        }
+        //Always return the current count
+        return ClickCount;
+
     }
 
     @Override
@@ -79,7 +141,7 @@ public class SgameActivity extends AppCompatActivity implements View.OnClickList
 
         btnReset = (Button) findViewById(R.id.btnReset);
         btnReset.setOnClickListener(this);
-        btnHelp = (Button) findViewById(R.id.Help);
+        btnHelp = (Button) findViewById(R.id.btnHelp);
         btnHelp.setOnClickListener(this);
         txtClickCount = (TextView) findViewById(R.id.txtClickCount);
 
@@ -87,14 +149,25 @@ public class SgameActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onClick(View v){
         Log.d(TAG, "Inside the On click hander");
-        switch(v.getId()){
-            case R.id.btn0:
-                // Add function that handles
+        for (int i =0 ; i<idBtn.length ; i++){
+            if (v.getId() == idBtn[i]){
+                userClicks(i);
+            }
+        }
+        if (isGameOver()){
+            //TODO Display the Winner mesage
+            setCntrArr();
+            displayCntrArr();
+        }
 
-            case R.id.btnReset:
-                //TODO call Dailog and handle it
-                setCntrArr();
-                displayCntrArr();
+        switch(v.getId()){
+             case R.id.btnReset:
+                 //TODO call Dailog and handle it
+                 setCntrArr();
+                 displayCntrArr();
+                 break;
+            case R.id.btnHelp:
+                //TODO display the Game instructions
         }
     }
 }

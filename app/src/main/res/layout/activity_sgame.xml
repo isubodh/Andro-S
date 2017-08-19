@@ -129,7 +129,7 @@
                 />
 
             <Button
-                android:id="@+id/Help"
+                android:id="@+id/btnHelp"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_margin="10dp"
