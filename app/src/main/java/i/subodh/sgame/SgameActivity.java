@@ -22,7 +22,7 @@ public class SgameActivity extends AppCompatActivity implements View.OnClickList
     private int ClickCount = 0;
     Button btnReset;
     Button btnHelp;
-    TextView txtClickCount;
+    private TextView txtClickCount;
 
     /*
     Set the Control Array Randomly
@@ -57,13 +57,6 @@ public class SgameActivity extends AppCompatActivity implements View.OnClickList
         }
         Toast.makeText(this, "Wow ! U did it...", Toast.LENGTH_SHORT).show();
         return true;
-    }
-    /*
-    Show the Click Count
-     */
-    void displayClickCount(){
-        Log.d(TAG, "Setting up Display of Click counter");
-        //txtClickCount.setText("Click Count : " + ClickCount);
     }
     /*
     Display the button label numbers as per the Control Array
@@ -128,8 +121,11 @@ public class SgameActivity extends AppCompatActivity implements View.OnClickList
                 ClickCount = 0;
                 break;
         }
-        //Always return the current count
-        displayClickCount();
+
+        // Now is time to update the counter display
+        Log.d(TAG, "Setting up Display of Click counter");
+        txtClickCount.setText("Click Count : "+ ClickCount);
+        //Always return the current count ?
         return ClickCount;
 
     }
@@ -148,9 +144,6 @@ public class SgameActivity extends AppCompatActivity implements View.OnClickList
         }
         Log.d(TAG, "done initializing button array");
 
-        setCntrArr();
-        displayCntrArr();
-
         Toast.makeText(this, "Welcome to S-Game", Toast.LENGTH_SHORT).show();
         Log.d(TAG, "Initial Button set up");
 
@@ -158,9 +151,10 @@ public class SgameActivity extends AppCompatActivity implements View.OnClickList
         btnReset.setOnClickListener(this);
         btnHelp = (Button) findViewById(R.id.btnHelp);
         btnHelp.setOnClickListener(this);
-
         txtClickCount = (TextView) findViewById(R.id.txtClickCount);
-        displayClickCount();
+
+        setCntrArr();
+        displayCntrArr();
 
 
     }
