@@ -1,6 +1,8 @@
 package i.subodh.sgame;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -155,9 +157,8 @@ public class SgameActivity extends AppCompatActivity implements View.OnClickList
 
         setCntrArr();
         displayCntrArr();
-
-
     }
+
     @Override
     public void onClick(View v){
         Log.d(TAG, "Inside the On click hander");
@@ -167,22 +168,52 @@ public class SgameActivity extends AppCompatActivity implements View.OnClickList
             }
         }
         if (isGameOver()){
-            //TODO Display the Winner mesage
-            setCntrArr();
-            displayCntrArr();
+            AlertDialog.Builder dialog = new AlertDialog.Builder(SgameActivity.this);
+            dialog.setCancelable(false);
+            dialog.setTitle("SGame! Win");
+            dialog.setMessage("WoW ! You did it in " + ClickCount + ", lets play again... " );
+            dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int id) {
+                    setCntrArr();
+                    displayCntrArr();
+                }
+            });
+
+            final AlertDialog alert = dialog.create();
+            alert.show();
+
         }
 
         switch(v.getId()){
              case R.id.btnReset:
-                 //TODO call Dailog and handle it
                  Toast.makeText(this, "You choose to Reset S-Game", Toast.LENGTH_SHORT).show();
                  Log.d(TAG, "Setting up a new S-Game");
-                 setCntrArr();
-                 displayCntrArr();
+
+                 AlertDialog.Builder dialog = new AlertDialog.Builder(SgameActivity.this);
+                 dialog.setCancelable(false);
+                 dialog.setTitle("SGame! Reset");
+                 dialog.setMessage("Reset ! Are you quitting game... " );
+                 dialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                     @Override
+                     public void onClick(DialogInterface dialog, int id) {
+                         setCntrArr();
+                         displayCntrArr();
+                     }
+                 });
+                 dialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                     @Override
+                     public void onClick(DialogInterface dialog, int id) {
+                         Toast.makeText(SgameActivity.this,"Good...you can finish the current game",Toast.LENGTH_SHORT).show();
+                     }
+                 });
+
+                 final AlertDialog alert = dialog.create();
+                 alert.show();
                  break;
             case R.id.btnHelp:
                 //TODO display the Game instructions
-                Toast.makeText(this, "Sorry No Help available", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Oh ! Subodh forgot to write HELP", Toast.LENGTH_SHORT).show();
                 Log.d(TAG, "Help Button Clicked");
         }
     }
