@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Sgame</string>
+    <string name="menu3x">3x3 Board</string>
+    <string name="menu4x">4x4 Board</string>
+    <string name="board3x3">Sgame 3x3</string>
+    <string name="board4x4">Sgame 4x4</string>
 </resources>
