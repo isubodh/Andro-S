@@ -175,7 +175,7 @@ public class SgameActivity extends AppCompatActivity implements View.OnClickList
             AlertDialog.Builder dialog = new AlertDialog.Builder(SgameActivity.this);
             dialog.setCancelable(false);
             dialog.setTitle("SGame! Win");
-            dialog.setMessage("WoW ! You did it in " + ClickCount + ", lets play again... " );
+            dialog.setMessage("WoW ! You did it in " + ClickCount + " clicks, lets play again... " );
             dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int id) {
@@ -234,8 +234,9 @@ public class SgameActivity extends AppCompatActivity implements View.OnClickList
 
         switch(menuitem.getItemId()) {
             case R.id.menu3x3:
-                Intent intent3x3 = new Intent(this, SgameActivity.class);
-                startActivity(intent3x3);
+                //Intent intent3x3 = new Intent(this, SgameActivity.class);
+                //startActivity(intent3x3);
+                Toast.makeText(this, "Its already a 3x3 board", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.menu4x4:
                 Intent intent4x4  = new Intent(this, fourXfour.class);

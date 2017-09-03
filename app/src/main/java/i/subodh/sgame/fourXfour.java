@@ -173,7 +173,7 @@ Verify the end game
             AlertDialog.Builder dialog = new AlertDialog.Builder(fourXfour.this);
             dialog.setCancelable(false);
             dialog.setTitle("SGame! Win");
-            dialog.setMessage("WoW ! You did it in " + ClickCount + ", lets play again... ");
+            dialog.setMessage("WoW ! You did it in " + ClickCount + " clicks, lets play again... ");
             dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int id) {
@@ -233,8 +233,9 @@ Verify the end game
                 startActivity(intent3x3);
                 break;
             case R.id.menu4x4:
-                Intent intent4x4  = new Intent(this, fourXfour.class);
-                startActivity(intent4x4);
+                //Intent intent4x4  = new Intent(this, fourXfour.class);
+                //startActivity(intent4x4);
+                Toast.makeText(this, "Its already a 4x4 board", Toast.LENGTH_SHORT).show();
                 break;
         }
         return true;
