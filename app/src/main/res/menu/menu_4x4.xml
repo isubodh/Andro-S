@@ -2,7 +2,7 @@
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <group />
+    <group>
     <item
         android:id="@+id/menu3x3"
         android:checkable="false"
@@ -14,4 +14,14 @@
         android:enabled="true"
         android:title="@string/menu4x"
         android:visible="true" />
+    </group>
+    <group>
+        <item
+        android:id="@+id/version"
+        android:enabled="false"
+            android:title="@string/version"
+            android:visible="true"
+        />
+    </group>
+
 </menu>
